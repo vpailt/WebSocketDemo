@@ -30,7 +30,7 @@ document.querySelector('header>p').textContent = decodeURIComponent(wsname);
 
 
 // create a WebSocket to the server
-var ws = new WebSocket("ws://127.0.0.1:8080/WSServer_war_exploded/websocket/nope");
+var ws = new WebSocket("ws://" + window.location.host);//new WebSocket("ws://127.0.0.1:8080/WSServer_war_exploded/websocket/nope");
 
 
 // we get notified once connected to the server
