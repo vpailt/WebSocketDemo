@@ -73,7 +73,7 @@ var sensorTest;
 client.onConnectionLost = function (responseObject) {
   console.log("Connection Lost: "+responseObject.errorMessage);
 }
-
+//
 client.onMessageArrived = function (message) {
   line = document.createElement('li');
 /*
