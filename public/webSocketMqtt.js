@@ -28,59 +28,15 @@ if (def(wsname)) {
 }
 document.querySelector('header>p').textContent = "Reception capteur de "+decodeURIComponent(wsname);
 
-
-
-// create a WebSocket to the server
-//var ws = new WebSocket("ws://" + window.location.host);//new WebSocket("ws://127.0.0.1:8080/WSServer_war_exploded/websocket/nope");
-/*
-var ws = new WebSocket("ws://127.0.0.1:8080");
-
-// we get notified once connected to the server
-ws.onopen = function(event) {
-  console.log("We are connected.");
-
-};
-
-// listen to messages comming from the server. When it happens, create a new <li> and append it to the DOM.
-var messages = document.querySelector('#messages');
-var line;
-ws.onmessage = function(event) {
-  line = document.createElement('li');
-  line.textContent = event.data;
-  messages.appendChild(line);
-};
-
-// retrieve the input element. Add listeners in order to send the content of the input when the "return" key is pressed.
-var sendForm = document.querySelector('form');
-var sendInput = document.querySelector('form input');
-sendForm.addEventListener('submit', sendMessage, true);
-sendForm.addEventListener('blur', sendMessage, true);
-
-
-function sendMessage(event) {
-  event.preventDefault();
-  event.stopPropagation();
-  if (sendInput.value !== '') {
-    // send data through the WebSocket
-    ws.send(sendInput.value+'lol');
-    sendInput.value = '';
-  }
-}
-*/
 var client = new Paho.MQTT.Client("127.0.0.1", Number(8080), "clientId" + Date.now().toString());
 // set callback handlers
 var sensorTest;
 client.onConnectionLost = function (responseObject) {
   console.log("Connection Lost: "+responseObject.errorMessage);
 }
-//
+
 client.onMessageArrived = function (message) {
   line = document.createElement('li');
-/*
-  line.textContent = JSON.parse(message.payloadString).type+" - "+
-      message.destinationName.substr(message.destinationName.indexOf("/")+1,
-          message.destinationName.length)+"  ";//+ sensorTest.toString();
-*/
   var id = message.destinationName.substr(message.destinationName.indexOf("/")+1,
       message.destinationName.length);
   var stringJson= {
@@ -109,7 +65,7 @@ function onConnect(){
 
 }
 function failure(){
-  console.log("Connected!");
+  console.log("failure!");
 
 }
 
