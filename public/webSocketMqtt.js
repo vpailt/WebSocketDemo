@@ -28,9 +28,10 @@ if (def(wsname)) {
 }
 document.querySelector('header>p').textContent = "Reception capteur de "+decodeURIComponent(wsname);
 
+
+//
 var client = new Paho.MQTT.Client("127.0.0.1", Number(8080), "clientId" + Date.now().toString());
-// set callback handlers
-var sensorTest;
+var sensor;
 client.onConnectionLost = function (responseObject) {
   console.log("Connection Lost: "+responseObject.errorMessage);
 }
@@ -47,11 +48,11 @@ client.onMessageArrived = function (message) {
       "value": JSON.parse(message.payloadString).value
     }
   };
-  sensorTest = TypeSensor(stringJson);
+  sensor = TypeSensor(stringJson);
 
-  line.textContent= "name : "+sensorTest.name +"\r\n";
-  line.textContent+="id : "+sensorTest.id+"\r\n";
-  line.textContent+="value : "+sensorTest.data.value+"  (type:"+stringJson.type+")";
+  line.textContent= "name : "+sensor.name +"\r\n";
+  line.textContent+="id : "+sensor.id+"\r\n";
+  line.textContent+="value : "+sensor.data.value+"  (type:"+stringJson.type+")";
 
   messages.appendChild(line);
   line.innerHTML = line.innerHTML.replace(/\n\r?/g, '<br />');
